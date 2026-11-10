@@ -16,6 +16,7 @@ class PatientCreate(BaseModel):
         return value
 
 class PatientResponse(BaseModel):
+    model_config = {"from_attributes": True}
     id: int
     full_name: str
     phone: str
@@ -23,7 +24,7 @@ class PatientResponse(BaseModel):
     birth_date: date | None = None
 
 class PatientReplace(PatientCreate):
-    pass
+    model_config = {"extra": "forbid"}
 
 class PatientUpdate(BaseModel):
     model_config = {"extra":"forbid"}

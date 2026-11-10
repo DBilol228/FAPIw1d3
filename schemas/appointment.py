@@ -43,6 +43,7 @@ class AppointmentUpdate(BaseModel):
         return value
 
 class AppointmentResponse(BaseModel):
+    model_config = {"from_attributes": True}
     id: int
     patient_id: int
     doctor_id: int
@@ -50,3 +51,9 @@ class AppointmentResponse(BaseModel):
     duration_minutes: Literal[15, 30, 45, 60]
     status: Literal["scheduled", "completed", "cancelled"]
     reason: str | None = None
+    @field_validator("start_at")
+    @classmethod
+    def add_utc_timezone(cls, value):
+        if value.tzinfo is None:
+            return value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)

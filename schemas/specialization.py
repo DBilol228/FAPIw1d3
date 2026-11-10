@@ -5,6 +5,7 @@ class SpecializationCreate(BaseModel):
     description: str | None = None
 
 class SpecializationResponse(BaseModel):
+    model_config = {"from_attributes": True}
     id: int
     name: str
     description: str | None = None

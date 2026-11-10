@@ -8,6 +8,7 @@ class DoctorCreate(BaseModel):
     is_active: bool = True
 
 class DoctorResponse(BaseModel):
+    model_config = {"from_attributes": True}
     id: int
     full_name: str
     specialization_id: int
@@ -16,7 +17,7 @@ class DoctorResponse(BaseModel):
     is_active: bool
 
 class DoctorReplace(DoctorCreate):
-    pass
+    model_config = {"extra": "forbid"}
 
 class DoctorUpdate(BaseModel):
     model_config = {"extra": "forbid"}
